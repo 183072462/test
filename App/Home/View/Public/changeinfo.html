@@ -1,0 +1,54 @@
+
+
+<div class="bjui-pageContent tableContent">
+    <form action="__URL__/changeinfo/navTabId/changeinfo" class="pageForm" data-toggle="validate">
+
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-condensed table-hover" width="100%">
+           <tbody>
+            <tr><td>
+                <label for="j_title" class="control-label x85">单位名称：</label>
+                <input type="text" data-rule="required" size="25" name="truename" id="j_truename" value="{$Rs['truename']}" readonly>
+             </td></tr>
+           <!-- <tr><td>
+            <label for="j_title" class="control-label x85">性别：</label>
+              <select name="sex"  data-toggle="selectpicker" data-rule="required">
+			    <if condition="$Rs['sex'] EQ 男 "><option value="男" selected>男</option><else/><option value="女" selected>女</option></if>
+                <option value="男">男</option>
+                <option value="女">女</option>
+                 </select>
+             </td></tr>-->
+            <tr><td>
+                <label for="j_title" class="control-label x85">固定电话：</label>
+                <input type="text" data-rule="required" size="25" name="tel" id="j_tel" value="{$Rs['tel']}" >
+             </td></tr>
+            <tr><td>
+                <label for="j_title" class="control-label x85">领导手机号：</label>
+                <input type="text" data-rule="required" size="25" name="phone" id="j_phone" value="{$Rs['phone']}" >
+            </td></tr><tr><td>
+                <label for="j_title" class="control-label x85">专干手机号：</label>
+                <input type="text"  data-rule="required" size="25" name="neixian"  value="{$Rs['neixian']}" >
+            </td></tr>
+            <tr><td>
+                <label for="j_title" class="control-label x85">电子邮箱：</label>
+                <input type="text" size="25" name="email" id="j_email" value="{$Rs['email']}" >
+             </td></tr>
+            <tr><td>
+                <label for="j_title" class="control-label x85">qq：</label>
+                <input type="text" size="25" name="qq" id="j_qq" value="{$Rs['qq']}" >
+            </td></tr>
+			
+            </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+            <ul>
+                <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+                <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+            </ul>
+</div>
+
+			
+			

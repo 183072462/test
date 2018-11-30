@@ -1,0 +1,61 @@
+<div class="bjui-pageContent tableContent">
+    <form action="__URL__/edit/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+		<input type="hidden" name="id" value="{$id}">
+    <div class="pageFormContent" data-layout-h="0">
+      <table class="table table-condensed table-hover" width="100%">
+        <tbody>
+          <tr></tr>
+          <tr>
+            <td colspan="2"><label for='title_input' class='control-label x85'>标题:</label>
+              <input type='text' id='title' name='title' data-rule='required;' size='65'   value='{$Rs.title}'  ></td>
+          </tr>
+          <tr>
+            <td><label for='refernumber_input' class='control-label x85'>文号:</label>
+              <input type='text' id='refernumber' name='refernumber' data-rule='required;' size='20'   value='{$Rs.refernumber}'  ></td>
+            <td><label for='classid_input' class='control-label x85'>通知分类:</label>
+              <select  data-toggle="selectpicker" name="classid" id="classid">
+                <volist name="clist" id="data"> <option value ="{$data.id}" 
+                  <if condition="$Rs.classid eq $data.id">selected="selected"</if>
+                  > {$data.title}
+                  </option>
+                </volist>
+              </select>
+              </td>
+          </tr>
+          <tr></tr>
+          </tr>
+          
+          <tr>
+            <td><label for='juname_input' class='control-label x85'>收文单位 :</label>
+              <input type='text' id='juname' name='juname'  size='20' data-toggle='lookup' data-url='__MODULE__/basic/user/navTabId/{:CONTROLLER_NAME}'  value='{$Rs.juname}'  ><input type='hidden' id='juid' name='juid'  size='20'   value='{$Rs.juid}'  ></td>
+            <td><label for='jztime_input' class='control-label x85'>短信提醒:</label>
+              <input type="checkbox"  id="phone" name="phone" data-toggle="icheck" value="1">
+              <label class='control-label' style="padding:0 5px;">发送至分管领导</label>
+              <input type="checkbox" name="neixian" data-toggle="icheck" id="neixian" value="1">
+              <label class='control-label' style="padding:0 5px;">发送至专干</label></td>
+          </tr>
+          <tr>
+            <td colspan=2><label for='content_input' class='control-label x85'>详细内容:</label>
+              <div style='display: inline-block; vertical-align: middle;'>
+                <textarea name='content'   data-toggle='kindeditor' data-minheight='150' data-items='fontname, fontsize, |, forecolor, hilitecolor, bold, italic, underline, removeformat, |, justifyleft, justifycenter, justifyright, insertorderedlist, insertunorderedlist, |, emoticons, image, multiimage, link'>{$Rs.content}</textarea>
+              </div></td>
+          </tr>
+          </tr>
+          
+          <tr>
+            <td colspan=2><label for='attid_input' class='control-label x85'>上传附件:</label>
+              <div style='display: inline-block; vertical-align: middle;'><IFRAME   src='__MODULE__/Public/attfile/attid/{$attid}/'  frameBorder=0 width='180%' height='auth' scrolling=no ></IFRAME>
+                <input type='hidden' id='attid' name='attid'  value='{$attid}'  >
+                <a href='__MODULE__/Public/uploads/attid/{$attid}/'   class='btn btn-green btn-sm' data-toggle='dialog' data-width='650' data-height='300' data-id='dialog-normal' data-mask='true' >已上传文件管理</a></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+       <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

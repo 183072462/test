@@ -1,0 +1,92 @@
+<div class="bjui-pageContent tableContent">
+  <div class="pageFormContent" data-layout-h="0">
+    <table class="table table-bordered table-striped table-hover">
+      <tbody>
+        <tr>
+          <td><label for='id_input' class='control-label x85'>ID:</label>
+            {$Rs.id}</td>
+          <td><label for='title_input' class='control-label x85'>通告标题:</label>
+            {$cname}</td>
+        </tr>
+        
+        <tr></tr>
+        <tr></tr>
+        <tr>
+          <td><label for='uname_input' class='control-label x85'>添加单位:</label>
+            {$Rs.uname}</td>
+          <td><label for='addtime_input' class='control-label x85'>添加时间:</label>
+            {$Rs.addtime}</td>
+        </tr>
+        
+        <tr></tr>
+       
+        </tr>
+        <tr>
+          <td colspan=2><label for='beizhu_input' class='control-label x85'>反馈内容:</label>
+           {$Rs.beizhu|html_out=###}</td>
+        </tr>
+        <tr>
+          <td colspan=2><label for='attid_input' class='control-label x85'>上传附件:</label>
+            <php>$attlist=M('files')->where('attid='.$Rs['attid'].' and status=1')->order('id desc')->select();</php>
+            <table class="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>上传人</th> <th>文件描述</th> <th>预览</th>
+                  <th>时间</th>
+                </tr>
+              </thead>
+              <tbody>
+                <volist id="v" name="attlist">
+                  <tr>
+                    <td>{$v.id}</td> <td>{$v['uid']|truename=###}</td>
+             <td><a href="/up.php?filename=__ROOT__/{$v['folder']}{$v['filename']}&realname={$v['filedesc']}">{$v['filedesc']}</a></td>
+			 <td> <button type="button" class="btn-default" data-toggle="dialog" data-options="{id:'预览', url:'__URL__/yl/id/{$v['id']}', title:'预览',max:true}">预览</button>
+			 </td>
+                    <td>{$v.addtime} </td>
+                  </tr>
+                </volist>
+              </tbody>
+            </table></td>
+        </tr> <tr>
+          <td colspan=2><label for='attid_input' class='control-label x85'>审核记录:</label>
+           
+            <table class="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>审核状态</th>
+                  <th>审核时间</th>
+                  <th>审核人</th>
+                 <th>备注</th>
+                </tr>
+              </thead>
+              <tbody>
+                <volist id="v" name="shlist">
+                  <tr>
+                    <td>{$v.status}</td>
+                    <td>{$v['addtime']}</td>
+                    <td>{$v['uid']|truename=###}</td>
+                  <td>{$v['resource']}</td>
+                  </tr>
+                </volist>
+              </tbody>
+            </table></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="bjui-pageFooter"> <ul>
+ <li><php>if(display(CONTROLLER_NAME.'/shenhe')){</php>
+
+         <a href="__URL__/shenhe/id/{$id}/sstatus/49/navTabId/{:CONTROLLER_NAME}" data-toggle="doajax" data-confirm-msg="确定要通过审核吗？"  class="btn <if condition="$v['shname'] eq '通过'">btn-default<else/>btn-green</if> btn-sm">通过审核</a>&nbsp;
+
+          <a href="__URL__/nosh/id/{$id}/sstatus/47/navTabId/{:CONTROLLER_NAME}" data-toggle="dialog" data-width="500" data-height="200" data-id="dialog-mask" data-mask="true"  class="btn <if condition="$v['shname'] eq '通过'">btn-default<else/>btn-red</if> btn-sm">不通过审核</a>&nbsp;
+
+          <php>}</php>
+
+      <button type="button" class="btn-close" data-icon="close">关闭</button>
+
+    </li>
+  </ul>
+</div>

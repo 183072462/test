@@ -1,0 +1,62 @@
+<div class="bjui-pageHeader">
+<form id="pagerForm" data-toggle="ajaxsearch" action="__URL__" method="post">
+	
+	<input type="hidden" name="pageSize" value="{$numPerPage}">
+    <input type="hidden" name="pageCurrent" value="{$_REQUEST['pageNum']|default=1}">
+	 
+        <div class="bjui-searchBar">
+            <label>关键词：</label><input type="text" value="{$_REQUEST['keys']}" name="keys" class="form-control" size="12" />
+				<label>类型：</label><select name='type' data-toggle='selectpicker'><option value=''>全部</option><foreach name='typelist' item='v'><option value='{$v.type}'  <if condition="$v.type EQ $_REQUEST['type']">selected<else/>{$_REQUEST['type']}</if> >{$v.type}</option></foreach></select>&nbsp;
+             <button type="submit"  class="btn-default" data-icon="search">查询</button>
+              <a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab('reloadForm', true);" data-icon="undo">清空查询</a>
+			  <span style="float:right;" ><a href="__URL__/del/navTabId/{:CONTROLLER_NAME}" class="btn btn-red" data-toggle="doajax" data-confirm-msg="确定要清理吗？" data-icon="remove">清理</a></span>
+			  <span><a href="__URL__/outxls" class="btn btn-blue" data-toggle="doexport" data-confirm-msg="确定要导出吗？" data-icon="arrow-up">导出</a></span>
+		</div> 
+</form>
+    
+</div>
+<div class="bjui-pageContent tableContent">
+     <table data-toggle="tablefixed" data-width="100%" data-layout-h="0" data-nowrap="true">
+        <thead>
+            <tr>
+            <th width="10" height="30"></th>
+            <th data-order-direction='desc' data-order-field='id' width='35'>ID</th>
+<th data-order-direction='desc' data-order-field='addtime'>发送时间</th>
+<th>发送人</th>
+<th>接收人</th>
+<th data-order-direction='desc' data-order-field='type'>类型</th>
+<th width="45%">内容</th>
+<th data-order-direction='desc' data-order-field='viewtime'>查看时间</th>
+
+			
+		    <th>状态</th>
+            </tr>
+        </thead>
+        <tbody>
+
+          <volist id="v" name="list">
+        <tr ondblclick="abc('{:CONTROLLER_NAME}{$v['id']}');">
+		   <td></td>
+		   <td>{$v.id}</td>
+<td>{$v.addtime}</td>
+<td>{$v.uname|msubstr=###,0,20}</td>
+<td>{$v.juid|truename=###,0,20}</td>
+<td>{$v.type}</td>
+<td>{$v.content}</td>
+<td>{$v.viewtime}</td>
+
+		   
+		   <td><a href="__URL__/lock/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}" data-toggle="doajax" data-confirm-msg="确定要操作吗？"><if condition="$v.status EQ 1 "><img src="__PUBLIC__/images/ok.gif" border="0"/><else/><img src="__PUBLIC__/images/locked.gif" border="0"/></if></a></td>
+		   </td>
+         </tr> 
+          </volist>
+        </tbody>
+    </table>
+</div>
+<div class="bjui-pageFooter">
+        <div class="pages">
+            <span>共 {$totalCount} 条  每页 {$numPerPage} 条</span>
+        </div>
+	    <div class="pagination-box" data-toggle="pagination" data-total="{$totalCount}" data-page-size="{$numPerPage}" data-page-current="{$currentPage}">
+        </div>
+</div>

@@ -1,0 +1,81 @@
+
+
+<div class="bjui-pageContent tableContent">
+    <form action="__URL__/edit/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+		<input type="hidden" name="id" value="{$id}">
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-condensed table-hover" width="100%">
+           <tbody>
+			<tr><td>
+                <label for="j_title" class="control-label x85">登陆账号:</label>
+                <input type="text" data-rule="required" size="25" name="username" id="j_username" value="{$Rs['username']}" <if condition="$id EQ 0"><else/>readonly</if> >
+             </td></tr>
+            <tr><td>
+                <label for="j_title" class="control-label x85">登陆密码:</label>
+                <input type="password" data-rule="required" size="25"  name="pwd" id="j_pwd" value="{$Rs['password']}" >
+				<span>不修改密码，此项不用改动</span>
+             </td></tr>
+            <tr><td>
+                <label for="j_title" class="control-label x85">单位名称：</label>
+                <input type="text" data-rule="required" size="25" name="truename" id="j_truename" value="{$Rs['truename']}" >
+             </td></tr>
+           
+            <tr><td>
+            <label for="j_name" class="control-label x85">所在部门：</label>
+			<select  name="depname" data-toggle="selectpicker" data-rule="required">
+             <option  value="0">请选择</option>
+	         <foreach name="list" item="v">
+              <option <if condition="$v.title EQ $Rs['depname'] ">selected value="{$Rs['depname']}" <else/>value="{$v.title}"</if> >
+	          <switch name="v.level">  <case value="0">+</case> <case value="1">+--</case><case value="2">+------</case><default /></switch>
+	         {$v.title}
+	          </option>
+             </foreach>
+             </select>
+             </td></tr>
+            <tr><td>
+               <label for="j_name" class="control-label x85">所属用户组：</label>
+			   <select  name="posname" data-toggle="selectpicker" data-rule="required">
+               <option  value="0">请选择</option>
+	         <php>$listz=M('auth_group')->where(array('type'=>1))->select();</php>
+	          <foreach name="listz" item="v">
+              <option <if condition="$v.title EQ $Rs['posname'] ">selected value="{$Rs['posname']}" <else/>value="{$v.title}"</if> >
+	          +{$v.title}
+	          </option>
+              </foreach>
+             </select>
+             </td></tr>
+            <tr><td>
+                <label for="j_title" class="control-label x85">固定电话：</label>
+                <input type="text" data-rule="required" size="25" name="tel" id="j_tel" value="{$Rs['tel']}" >
+             </td></tr>
+            <tr><td>
+                <label for="j_title" class="control-label x85">领导手机号：</label>
+                <input type="text" data-rule="required" size="25" name="phone" id="j_phone" value="{$Rs['phone']}" >
+            </td></tr>
+			<tr><td>
+                <label for="j_title" class="control-label x85">专干手机号：</label>
+                <input type="text" data-rule="required" size="25" name="neixian" id="j_neixian" value="{$Rs['neixian']}" >
+            </td></tr>
+            <tr><td>
+                <label for="j_title" class="control-label x85">电子邮箱：</label>
+                <input type="text" data-rule="required" size="25" name="email" id="j_email" value="{$Rs['email']}" >
+             </td></tr>
+            <tr><td>
+                <label for="j_title" class="control-label x85">qq：</label>
+                <input type="text" data-rule="required" size="25" name="qq" id="j_qq" value="{$Rs['qq']}" >
+            </td></tr>
+            </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+       <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>
+
+
+			
+			

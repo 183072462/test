@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>浏阳市文明创建管理系统 Power by 湖南启程网络</title><script src="__PUBLIC__/BJUI/js/jquery-1.7.2.min.js"></script>
+<script src="__PUBLIC__/BJUI/js/jquery.cookie.js"></script>
+<script type="text/javascript">
+var COOKIE_NAME = 'sys__username';
+$(function() {
+    choose_bg();
+	login_onclick();
+	//changeCode();
+	if ($.cookie(COOKIE_NAME)){
+	    $("#i_t").val($.cookie(COOKIE_NAME));
+	    $("#i_p").focus();
+	    $("#rememberme").attr('checked', true);
+	} else {
+		$("#i_t").focus();
+	}
+	/*$("#captcha_img").click(function(){
+		changeCode();
+	});*/
+	$("#login_form").submit(function(){
+		var issubmit = true;
+		var i_index  = 0;
+		$(this).find('.in').each(function(i){
+			if ($.trim($(this).val()).length == 0) {
+				$(this).css('border', '1px #ff0000 solid');
+				issubmit = false;
+				if (i_index == 0)
+					i_index  = i;
+			}
+		});
+		if (!issubmit) {
+			$(this).find('.in').eq(i_index).focus();
+			return false;
+		}
+		var $remember = $("#rememberme");
+		if ($remember.attr('checked')) {
+			$.cookie(COOKIE_NAME, $("#i_t").val(), { path: '/', expires: 15 });
+		} else {
+			$.cookie(COOKIE_NAME, null, { path: '/' });  //删除cookie
+		}
+		
+		//var password = HMAC_SHA256_MAC($("#i_t").val(), $("#i_p").val());
+		//$("#i_p").val(HMAC_SHA256_MAC($("#j_randomKey").val(), password));
+        return true;
+	});
+});
+function genTimestamp(){
+	var time = new Date();
+	return time.getTime();
+}
+function changeCode(){
+	//$("#captcha_img").attr("src", "/captcha.jpeg?t="+genTimestamp());
+}</script>
+<style type="text/css">
+body{font-family:arial,"\5b8b\4f53";background:#fff;font-size:12px;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0}
+h1,h2,h3,h4,h5,h6{font-size:100%}
+ol,ul{list-style:none}
+em,strong,th{font-style:normal}
+input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;*font-size:100%}
+input, textarea, button, a {outline: none}
+fieldset,img,a img,:link img,:visited img{border:0}
+a{text-decoration:none}
+a:hover{text-decoration:underline}
+table{border-collapse:collapse;border-spacing:0}
+th{text-align:left}
+.clear,.clearfix:after{clear:both;height:0;overflow:hidden;display:block}
+.clearfix:after{visibility:hidden;content:"."}
+.clearfix{*zoom:1}
+
+.l_hd{ height:160px;position:relative;z-index:999;}
+.l_hd_logo{ width:500px; height:70px; background: url(/public/images/logo.png) no-repeat;position:absolute;top:50px; left:50px;}
+.l_bd{ height:500px; background:url(/public/images/l_b_bg.jpg) no-repeat;position:relative;z-index:999;}
+.l_b_login{ background:url(/public/images/l_l_bg.png) no-repeat; width:320px; height:350px;position:absolute; right:13%; top:50px;}
+
+.submit{ width:280px;margin:120px 0 0 20px;}
+#i_t, #i_p,.i_g {background: url(/public/images/icon.png) no-repeat;display:block}
+#i_t, #i_p {width: 248px;height: 33px;color:#9c9c9c;padding-left: 30px;margin-top: 20px;line-height: 33px;cursor: auto}
+#i_t {background-position: 2px 3px;}
+#i_p {background-position: 2px -30px;}
+.i_t, .i_p {background-color: #fff;border: 1px solid #9c9c9c}
+.i_c {border: 1px solid #0070ff}
+.i_g {width: 280px;height:36px;border: 0;margin-top: 20px;background-position: 0 -64px;cursor: pointer;zoom: 1}
+.i_r {color: #9c9c9c;width: 280px;height: 17px;line-height: 17px;margin-top:10px}
+.rememberme {display: block;margin: 2px 6px 0 0;float: left}
+.l_ft{line-height:32px;height:32px;text-align:center;color: #9c9c9c;}
+</style>
+</head>
+
+<body>
+<div class="l_hd">
+  <div class="l_hd_logo"></div>
+</div>
+<div class="l_bd">
+  <div class="l_b_login">
+    <div class="submit"><input type="hidden" value="${randomKey }" id="j_randomKey" />
+    		<form action="{:U('Login')}" name="frmlogin" id="login_form" method="post">
+      <input type="text" class="i_t" name="username" value="请输入帐号" maxlength="50" id="i_t" onMouseOut="this.className='i_t'" onMouseMove="this.className='i_c'" onFocus="if(this.value=='请输入帐号'){this.value=''};this.style.color='black';" onBlur="if(this.value==''||this.value=='请输入帐号'){this.value='请输入帐号';this.style.color='#9c9c9c';}" style="color:#9c9c9c;">
+      <input type="password" name="password" class="i_p" value="" maxlength="50" id="i_p" onMouseOut="this.className='i_p'" onMouseMove="this.className='i_c'" onFocus="if(this.value=='请输入密码'){this.value=''};this.style.color='black';" onBlur="if(this.value==''||this.value=='请输入密码'){this.value='请输入密码';this.style.color='#9c9c9c';}">
+      <button type="submit" class="i_g" tabindex="3" id="i_g"></button>
+      <div class="i_r"><input type="checkbox" class="rememberme" id="rememberme" checked="">记住帐号</div></form>
+    </div>
+  </div>
+</div>
+<div class="l_ft">浏阳市启程信息技术有限公司 0731-83598359</div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<div class="bjui-pageContent tableContent">
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-bordered table-striped table-hover">
+           <tbody>
+		   <tr><td colspan="2"><label for='title_input' class='control-label x85'>文档标题:</label>{$Rs.title}</td></tr>
+<tr><td><label for='type_input' class='control-label x85'>文档分类:</label>{$Rs.type}</td><td><label for='juname_input' class='control-label x85'>共享给:</label>{$Rs.juname}</td></tr>
+<tr></tr>
+<tr></tr>
+<tr><td><label for='uname_input' class='control-label x85'>添加单位:</label>{$Rs.uname}</td><td><label for='addtime_input' class='control-label x85'>添加时间:</label>{$Rs.addtime}</td></tr>
+<tr><td><label for='uuname_input' class='control-label x85'>更新人:</label>{$Rs.uuname}</td><td><label for='updatetime_input' class='control-label x85'>更新时间:</label>{$Rs.updatetime}</td></tr>
+<tr></tr>
+<tr><td colspan=2><label for='beizhu_input' class='control-label x85'>备注说明:</label><div style='display: inline-block; vertical-align: middle;'>{$Rs.beizhu|html_out=###}</div></td></tr></tr>
+<tr><td colspan=2><label for='attid_input' class='control-label x85'>上传附件:</label>
+			<php>$attlist=M('files')->where('attid='.$Rs['attid'].' and status=1')->order('id desc')->select();</php>	
+	         <foreach name='attlist' item='vf'>{$vf['uid']|truename=###}:<a href='__ROOT__/{$vf['folder']}{$vf['filename']}' target=_blank>{$vf['filedesc']}</A>&nbsp;&nbsp;{$vf['addtime']}<Br/><label  class='control-label x85'></label></foreach></td></tr>
+           </tbody>
+          </table>
+        </div>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

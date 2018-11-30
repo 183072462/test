@@ -1,0 +1,33 @@
+<div class="bjui-pageContent tableContent">
+  <form action="__URL__/add/navTabId/Task" class="pageForm" data-toggle="validate">
+    <div class="pageFormContent" data-layout-h="0">
+      <table class="table table-condensed table-hover" width="100%">
+        <tbody>
+          </tr>
+          
+          </tr>
+          
+          <tr>
+            <td colspan=2><input type="hidden" name="rid" value="{$id}">
+              <input type="hidden" name="cid" value="{$Think.session.depid}">
+              <input type="hidden" name="classid" value="{$classid}">
+              <label for='attid_input' class='control-label x85'>上传附件:</label>
+              <div style='display: inline-block; vertical-align: middle;'><IFRAME   src='__MODULE__/Public/attfile/attid/{$attid}/'  frameBorder=0 width='180%' height='auth' scrolling=no ></IFRAME>
+                <input type='hidden' id='attid' name='attid'  value='{$attid}'  >
+                <a href='__MODULE__/Public/uploads/attid/{$attid}/'   class='btn btn-green btn-sm' data-toggle='dialog' data-width='650' data-height='300' data-id='dialog-normal' data-mask='true' >已上传文件管理</a></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>
+<div class="bjui-pageFooter">
+  <ul>
+    <li>
+      <button type="button" class="btn-close" data-icon="close">取消</button>
+    </li>
+    <li>
+      <button type="submit" class="btn-default" data-icon="save">保存</button>
+    </li>
+  </ul>
+</div>

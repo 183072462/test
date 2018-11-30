@@ -1,0 +1,63 @@
+<div class="bjui-pageContent tableContent">
+  <form action="__URL__/add/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+    <input type="hidden" name="id" value="{$id}">
+    <div class="pageFormContent" data-layout-h="0">
+      <table class="table table-condensed table-hover" width="100%">
+        <tbody>
+          <tr>
+            <td colspan="2"><label for='title_input' class='control-label x85'>标题:</label>
+              <input type='text' id='title' name='title' data-rule='required;' size='65'   value='{$Rs.title}'  ></td>
+          
+          </tr>
+        
+          </tr>
+          <tr>
+          <tr>
+            <td><label for='years_input' class='control-label x85'>年份:</label>
+              <input type='text' id='years' name='years' onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" size='20' value='{$Rs.cname}'  >
+              <input type='hidden' id='cid' name='cid'  size='20'   value='{$Rs.cid}'  ></td>
+            <td><label for='periods_input' class='control-label x85'>期数:</label>
+              <input type='text' id='periods' onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" name='periods' size='20'   value='{$Rs.periods}'  ></td>
+          </tr>
+          <tr>
+            <td><label for='jztime_input' class='control-label x85'>截止时间:</label>
+              <input type='text' data-toggle='datepicker' data-pattern='yyyy-MM-dd HH:mm:ss' id='jztime' name='jztime' size='21' value='{$Rs.jztime}'></td>
+            <td></td>
+          </tr>  <tr>  <td><label for='cid_input' class='control-label x85'>责任单位:</label>
+              <input type='text' id='juname' name='juname'  size='20' data-toggle='lookup' data-url='__MODULE__/basic/user/navTabId/{:CONTROLLER_NAME}'  value=''  >
+              <input type='hidden' id='juid' name='juid'  size='20'   value='{$Rs.juid}'  ></td>
+           <td><label for='jztime_input' class='control-label x85'>短信提醒:</label> <input type="checkbox"  id="phone" name="phone" data-toggle="icheck" value="1"><label class='control-label' style="padding:0 5px;">发送至分管领导</label><input type="checkbox" name="neixian" data-toggle="icheck" id="neixian" value="1"><label class='control-label' style="padding:0 5px;">发送至专干</label></td>
+           
+          <tr></tr>
+          <tr></tr>
+          </tr>
+          
+          <tr>
+            <td colspan=2><label for='beizhu_input' class='control-label x85'>内容:</label>
+              <div style='display: inline-block; vertical-align: middle;'>
+                <textarea name='beizhu'   data-toggle='kindeditor' data-minheight='150' data-items='fontname, fontsize, |, forecolor, hilitecolor, bold, italic, underline, removeformat, |, justifyleft, justifycenter, justifyright, insertorderedlist, insertunorderedlist, |, emoticons, image, multiimage, link'>督查详情，请下载附件。请在截止日前反馈整改结果，逾期视作无反馈。{$Rs.beizhu}</textarea>
+              </div></td>
+          </tr>
+          </tr>
+          
+          <tr>
+            <td colspan=2><label for='attid_input' class='control-label x85'>上传附件:</label>
+              <div style='display: inline-block; vertical-align: middle;'><IFRAME   src='__MODULE__/Public/attfile/attid/{$attid}/'  frameBorder=0 width='180%' height='auth' scrolling=no ></IFRAME>
+                <input type='hidden' id='attid' name='attid'  value='{$attid}'  >
+                <a href='__MODULE__/Public/uploads/attid/{$attid}/'   class='btn btn-green btn-sm' data-toggle='dialog' data-width='550' data-height='300' data-id='dialog-normal' data-mask='true' >已上传文件管理</a></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>
+<div class="bjui-pageFooter">
+  <ul>
+    <li>
+      <button type="button" class="btn-close" data-icon="close">取消</button>
+    </li>
+    <li>
+      <button type="submit" class="btn-default" data-icon="save">保存</button>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,84 @@
+<div class="bjui-pageContent tableContent">
+  <form action="__URL__/edit/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+    <input type="hidden" name="id" value="{$id}">
+    <div class="pageFormContent" data-layout-h="0">
+      <table class="table table-condensed table-hover" width="100%">
+        <tbody>
+          <tr>
+            <td><label for='levelid_input' class='control-label x85'>荣誉级别:</label>
+              <select  data-toggle="selectpicker" name="levelid" id="levelid">
+                <volist name="levelist" id="data">
+                  <if condition="$data['id'] eq $Rs['levelid']"><option value ="{$data.id}"   selected="selected"> <else/><option value ="{$data.id}"></if>
+               {$data.title} </option></volist>
+              </select></td>
+            <td><label for='callname_input' class='control-label x85'>荣誉称号:</label>
+              <select  data-toggle="selectpicker" name="callname" id="callname" style="width:230px;">
+                <volist name="calllist" id="data">
+                   <if condition="$data['id'] eq $Rs['callname']"><option value ="{$data.id}"   selected="selected"> <else/><option value ="{$data.id}"></if>
+                  {$data.title} </option></volist>
+              </select></td>
+          </tr>
+          <tr>
+            <td><label for='orgname_input' class='control-label x85'>单位名称:</label>
+              <input type='text' id='orgname' name='orgname' style="width:130px;"  data-rule='required;'  value='{$Rs.orgname}'></td>
+            <td><label for='unitproid_input' class='control-label x85'>单位性质:</label>
+              <select name="unitproid"  data-toggle="selectpicker" id="unitproid" style="width:230px;">
+                <volist name="unitproidlist" id="data">
+                  <if condition="$data['id'] eq $Rs['unitproid']"><option value ="{$data.id}"   selected="selected"> <else/><option value ="{$data.id}"></if>
+                  {$data.title} </option></volist>
+              </select></td>
+          </tr>
+          <tr>
+            <td><label for='unitaddress_input' class='control-label x85'>单位地址:</label>
+              <input type='text' id='unitaddress' name='unitaddress' style="width:130px;"   value='{$Rs.unitaddress}'  ></td>
+            <td><label for='phone_input' class='control-label x85'>联系方式:</label>
+              <input type='text' id='phone' name='phone' style="width:120px;"  data-rule='required;'  value='{$Rs.phone}'  ></td>
+          </tr>  <php>if(display(CONTROLLER_NAME.'/shenhe')){</php>
+          <tr>
+            <td><label for='leader_input' class='control-label x85'>负责人:</label>
+              <input type='text' id='leader' name='leader' style="width:120px;" data-rule='required;'   value='{$Rs.leader}'  >
+             </td><td> <label for='winstatus_input' class='control-label x85'>获奖状态:</label>
+              <select name="winstatus"  data-toggle="selectpicker" id="winstatus"> <volist name="winstatus" id="data">
+                  <if condition="$data['id'] eq $Rs['winstatus']"><option value ="{$data.id}"   selected="selected"> <else/><option value ="{$data.id}"></if>
+               {$data.title} </option>  </volist></select><input type='hidden' id='juid' name='juid'  size='0'   value='{$Rs.juid}'  ></td>
+          </tr><php>}</php>
+          <tr>
+            <td><label for='jztime_input' class='control-label x85'>截止时间:</label>
+              <input type='text' data-toggle='datepicker' id='jztime' name='jztime'  data-rule='' size='20'   value='{$Rs.jztime|substr=###,0,10}'  >
+             </td><td><label for='wintime_input' class='control-label x85'>获奖时间:</label>
+              <input type='text' data-toggle='datepicker' id='wintime' name='wintime'  data-rule='' size='20'   value='{$Rs.wintime|substr=###,0,10}'  ></td>
+          </tr>
+          <tr></tr>
+          <tr></tr>
+         
+          </tr>
+          
+          </tr>          <tr>
+            <td colspan=2><label for='beizhu_input' class='control-label x85'>备注:</label>
+              <div style='display: inline-block; vertical-align: middle;'>
+                <textarea name='beizhu'   data-toggle='kindeditor' data-minheight='150' data-items='fontname, fontsize, |, forecolor, hilitecolor, bold, italic, underline, removeformat, |, justifyleft, justifycenter, justifyright, insertorderedlist, insertunorderedlist, |, emoticons, image, multiimage, link'>{$Rs.beizhu}</textarea>
+              </div></td>
+          </tr>
+
+          
+          <tr>
+            <td colspan=2><label for='attid_input' class='control-label x85'>上传附件:</label>
+              <div style='display: inline-block; vertical-align: middle;'><IFRAME   src='__MODULE__/Public/attfile/attid/{$attid}/'  frameBorder=0 width='180%' height='auth' scrolling=no ></IFRAME>
+                <input type='hidden' id='attid' name='attid'  value='{$attid}'  >
+                  <a href='__MODULE__/Public/uploads/attid/{$attid}/'   class='btn btn-green btn-sm' data-toggle='dialog' data-width='650' data-height='300' data-id='dialog-normal' data-mask='true' >已上传文件管理</a></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>
+<div class="bjui-pageFooter">
+  <ul>
+    <li>
+      <button type="button" class="btn-close" data-icon="close">取消</button>
+    </li>
+    <li>
+      <button type="submit" class="btn-default" data-icon="save">保存</button>
+    </li>
+  </ul>
+</div>

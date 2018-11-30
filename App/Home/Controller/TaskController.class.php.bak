@@ -1,0 +1,144 @@
+<?php
+
+/**
+ *      通知公告控制器
+ */
+
+namespace Home\Controller;
+use Think\Controller;
+
+class TaskController extends CommonController{
+
+   public function _initialize() {
+	  
+   		parent::_initialize();
+        $this->dbname = CONTROLLER_NAME;
+        $this->url=CONTROLLER_NAME;
+    }
+	
+   function _filter(&$map) {
+	   $this->time=date("Y-m-d H:i:s");
+		//获取任务分类
+	   if(!in_array(session('uid'),C('ADMINISTRATOR'))){
+		 $map[]=array("juid"=>array('like','%'.session("uid").'%'),"_logic"=>"or");  
+	   }
+	   if($_REQUEST['class2id']){
+		   $map['class2id']=$_REQUEST['class2id'];
+		   
+		   $this->class2id=$_REQUEST['class2id'];
+		   }	   
+	   if($_REQUEST['classid']){
+		   $map['classid']=$_REQUEST['classid'];
+		   $this->classid=$_REQUEST['classid'];
+		   $this->class2list=D('Datalist')->getselect($_REQUEST['classid']);
+		   $this->url="/classid/45/".CONTROLLER_NAME;
+		   }
+	   if(isset($_REQUEST['time1']) && $_REQUEST['time1'] != ''&&isset($_REQUEST['time2']) && $_REQUEST['time2'] != ''){$map['jztime'] =array(array('egt',I('time1').' 00:00:00'),array('elt',I('time2').' 59:59:59'));}
+
+	   
+
+	}
+	
+   public function _befor_index(){ 
+     
+   }
+  public function _befor_add(){
+	  $attid=time();
+	  $this->assign('attid',$attid);
+	  if(I('classid')){
+		  $classid=$this->classid=I('classid');
+		  //获取任务分类
+		  $this->clist=D('Datalist')->getselect($classid);
+	  }
+    
+  }
+  public function _befor_insert($data){
+
+  }
+	
+  public function _after_add($id){
+    //获取juid
+	if($id){
+		$juid=M('Task')->where("id=$id")->getField('juid');
+		$julist = explode(',',$juid);
+		
+		$content="您有材料报送任务";
+		foreach($julist as $k=>$v){
+			$this->sendMsg($_SESSION['xykj']['uid'],$_SESSION['xykj']['username'],$content,$v,$navTabId="");
+			} 
+	}
+   }
+  public function _befor_edit(){
+     $model = D($this->dbname);
+	 
+	 $info = $model->find(I('get.id'));
+	 $attid=$info['attid'];
+	 $this->assign('attid',$attid); //获取任务分类
+	 $this->clist=D('Datalist')->getselect(44);
+  }
+   
+  public function _befor_update($data){
+
+  }
+  
+  public function _after_edit($id){
+     if($id){
+		$juid=M('Task')->where("id=$id")->getField('juid');
+	  
+		$julist = explode(',',$juid);
+		
+		$content="您有材料报送任务";
+		foreach($julist as $k=>$v){
+			$this->sendMsg($_SESSION['xykj']['uid'],$_SESSION['xykj']['username'],$content,$v,$navTabId="");
+			} 
+	}
+   }
+
+   public function _befor_view($id){
+	$wheid['id']=$id;
+	$plist=D('task')->where($wheid)->field('class2id')->find();
+	$this->cname=D('datalist')->getselectname($plist['class2id']);
+   }
+   
+   public function _befor_del($id){
+	   
+   }
+
+   public function outxls() {
+		$model = D($this->dbname);
+		$map = $this->_search();
+		if (method_exists($this, '_filter')) {
+			$this->_filter($map);
+		}
+		$list = $model->where($map)->field('id,beizhu,juid,juname,title,jztime,content')->select();
+	    $headArr=array('ID','查看记录','接收人ID','接收人','通知标题','截至日期','详细内容');
+	    $filename='通知公告';
+		$this->xlsout($filename,$headArr,$list);
+	}
+	
+	public function fenxi(){
+	 $this->display();
+	}
+	//获取上报情况
+	public function getsbinfo(){
+		//获取部门
+		$whecid['id']=$wcid['rid']=I('id');
+		//获取所有参与人员
+		$bmlist=M('task')->where($whecid)->field('juid')->find();
+		$str1=$bmlist['juid'];
+		//获取已提交的成员
+		$ytjlist=M('material')->where($wcid)->field('uid')->group(juid)->select();
+		$str="0";
+		foreach($ytjlist as $k=>$v){
+			$str.=','.$v['juid'];
+			}
+		$wheauth['id'] =array(array('in',$str1),array('not in',$str));
+		//获取未提交的
+		$this->dtj=M('user')->where($wheauth)->field('truename as title')->select();
+		$this->shwtg=M('material')->field('truename as title,sstatus')->join('left join xy_user on xy_material.juid=xy_user.id')->where($wcid)->group('juid')->order('addtime desc')->select();
+		
+		$this->display();
+		}
+	
+
+}

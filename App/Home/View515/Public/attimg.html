@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>浏阳市文明创建管理系统</title>
+
+</head>
+
+<body style="margin:0;font-size:12px">
+<form action="{:U('Public/uploadimg')}" enctype="multipart/form-data" id="login_form" method="post"> 
+<input name="filename" type="file" size=10 value=""/>
+<input type='hidden' id='hdimgid' name='hdimgid'  value='{$hdimgid}'  >
+<input name="" type="submit"  value="上传"/>&nbsp;<span style="color:red;">(单个附件上传大小不能超过10M)</span>
+<if condition="$img neq ''">
+<img src="/{$img}" style="height:100px;width:100px;">
+</if>
+</form>
+
+</body>
+</html>

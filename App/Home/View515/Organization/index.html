@@ -1,0 +1,150 @@
+<div class="bjui-pageHeader">
+  <form id="pagerForm" data-toggle="ajaxsearch" action="__URL__" method="post">
+    <input type="hidden" name="pageSize" value="{$numPerPage}">
+    <input type="hidden" name="state" value="{$state}">
+    <input type="hidden" name="pageCurrent" value="{$_REQUEST['pageNum']|default=1}">
+    <div><span class="bjui-searchBar">
+      <label>关键词：</label>
+      <input type="text" value="{$_REQUEST['orgname']}" name="orgname" class="form-control" size="12" />
+      &nbsp;
+      <label>添加单位：</label>
+      <input type='text' id='juname' name='juname'  size='20' value="{$juname}" data-toggle='lookup' data-url='__MODULE__/basic/user/navTabId/{:CONTROLLER_NAME}'  value=''  >
+      &nbsp;
+      &nbsp;
+      <label>审核状态：</label>
+      <select name="sstatus" id="sstatus" data-toggle='selectpicker'>
+        <option value='0'>全选</option>
+        <volist name="sstalist" id="data"> <option value ="{$data.id}" 
+          <if condition="$sstatus eq $data['id']">selected="selected"</if>
+          > {$data.title}
+               
+          </option>
+        </volist>
+      </select>
+      <label>获奖状态：</label>
+      <select name="winstatus" id="winstatus" data-toggle='selectpicker'>
+        <option value='0'>全选</option>
+        <volist name="stalist" id="data"> <option value ="{$data.id}" 
+          <if condition="$winstatus eq $data['id']">selected="selected"</if>
+          > {$data.title}
+               
+          </option>
+        </volist>
+      </select>
+      &nbsp; </span>
+      <label>级别:</label>
+      <select name="levelid" id="levelid" data-toggle='selectpicker'>
+        <option value='0'>全选</option>
+        <volist name="levelist" id="data"> <option value ="{$data.id}" 
+            
+          <if condition="$levelid eq $data['id']">selected="selected"</if>
+          > {$data.title}
+               
+          </option>
+        </volist>
+      </select>
+      &nbsp;
+      <label>荣誉称号:</label>
+      <span class="bjui-searchBar">
+      <select name="callname" id="callname" data-toggle='selectpicker'>
+        <option value='0'>全选</option>
+        <volist name="calllist" id="data"> <option value ="{$data.id}" 
+          <if condition="$callname eq $data['id']">selected="selected"</if>
+          > {$data.title}
+               
+          </option>
+        </volist>
+      </select>
+      &nbsp;
+      <label>单位性质:</label>
+      <select name="unitproid" id="unitproid" data-toggle='selectpicker'>
+        <option value='0'>全选</option>
+        <volist name="unitlist" id="data"> <option value ="{$data.id}" 
+          <if condition="$unitproid eq $data['id']">selected="selected"</if>
+          > {$data.title}
+               
+          </option>
+        </volist>
+      </select>
+      &nbsp;
+      <label>获奖时间：</label>
+      <input type='text' data-toggle='datepicker' value='{$_REQUEST['timehj1']}' name='timehj1' class='form-control' size='12' />
+      -
+      <input type='text' data-toggle='datepicker' value='{$_REQUEST['timehj2']}' name='timehj2' class='form-control' size='12' />
+      &nbsp;
+      <label>截止时间：</label>
+      <input type='text' data-toggle='datepicker' value='{$_REQUEST['timejz1']}' name='timejz1' class='form-control' size='12' />
+      -
+      <input type='text' data-toggle='datepicker' value='{$_REQUEST['timejz2']}' name='timejz2' class='form-control' size='12' />
+      &nbsp;
+      <button type="submit"  class="btn-default" data-icon="search">查询</button>
+      <a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab('reloadForm', true);" data-icon="undo">清空查询</a>
+      <php>if(display(CONTROLLER_NAME.'/pldel')){</php>
+      <span><a type="button" class="btn btn-red" href="__URL__/pldel/navTabId/{:CONTROLLER_NAME}" data-toggle="doajaxchecked" data-group="ids" data-confirm-msg="确定要删除选中项吗？">批量删除</a></span>
+      <php>}</php>
+      <php>if(display(CONTROLLER_NAME.'/add')){</php>
+      <span><a href="__URL__/add/navTabId/{:CONTROLLER_NAME}" class="btn btn-green" data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" data-icon="plus">新增</a></span>
+      <php>}</php>
+      </span></div>
+  </form>
+</div>
+<div class="bjui-pageContent tableContent">
+  <table data-toggle="tablefixed" data-width="100%" data-layout-h="0" data-nowrap="true">
+    <thead>
+      <tr>
+        <th width="25" height="30"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+        <th data-order-direction='desc' data-order-field='id' width='35'>ID</th>
+        <th>荣誉级别</th>
+        <th>荣誉称号</th>
+        <th>单位名称</th>
+        <th>单位性质</th>
+        <th data-order-direction='desc' data-order-field='wintime'>获奖日期</th>
+        <th data-order-direction='desc' data-order-field='jztime'>截止日期</th>
+        <th>审核状态</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <volist id="v" name="list">
+        <tr ondblclick="abc('{:CONTROLLER_NAME}{$v['id']}');">
+          <td><input type="checkbox" id="ids" data-toggle="icheck" value="{$v.id}" 
+            <if condition="($v['sstatus'] == 49 && (session('uid') !=1) or (session('uid') !=1&&session('uid') !=$v['uid']))"> name="idss" disabled
+              <else/>
+              name="ids"</if>
+            ></td>
+          <td>{$v.id}</td>
+          <td>{$v.levelname}</td>
+          <td>{$v.callname}</td>
+          <td>{$v.orgname}</td>
+          <td>{$v.unitproidname}</td>
+          <td>{$v.wintime|substr=###,0,10}</td>
+          <td>{$v.jztime|substr=###,0,10}</td>
+          <td>{$v.shname}</td>
+          <php>if(display(CONTROLLER_NAME.'/view')){</php>
+          <td style="display:none;"><a href="__URL__/view/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}"  data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" id="{:CONTROLLER_NAME}{$v['id']}" >详细</a></td>
+          <php>}</php>
+            </td>
+          <td><php>if(display(CONTROLLER_NAME.'/shenhe')){</php>
+            <a href="__URL__/shenhe/id/{$v['id']}/sstatus/49/navTabId/{:CONTROLLER_NAME}" data-toggle="doajax" data-confirm-msg="确定要通过审核吗？"  class="btn <if condition="$v['shname'] eq '通过'">btn-default
+            <else/>
+            btn-green
+            </if>
+            btn-sm">通过审核</a>&nbsp; <a href="__URL__/nosh/id/{$v['id']}/sstatus/47/navTabId/{:CONTROLLER_NAME}" data-toggle="dialog" data-width="500" data-height="200" data-id="dialog-mask" data-mask="true"  class="btn <if condition="$v['shname'] eq '通过'">btn-default
+            <else/>
+            btn-red
+            </if>
+            btn-sm">不通过审核</a>&nbsp;
+            <php>}</php>
+            <php>if(session(uid)==$v['uid'] or session(uid) ==1){</php>
+            <if condition="$v['sstatus'] != 49"> <a href="__URL__/edit/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}"   class="btn btn-green btn-sm" data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" >编辑</a> </if>
+            <php>}</php></td>
+            </td>
+        </tr>
+      </volist>
+    </tbody>
+  </table>
+</div>
+<div class="bjui-pageFooter">
+  <div class="pages"> <span>共 {$totalCount} 条  每页 {$numPerPage} 条</span> </div>
+  <div class="pagination-box" data-toggle="pagination" data-total="{$totalCount}" data-page-size="{$numPerPage}" data-page-current="{$currentPage}"> </div>
+</div>

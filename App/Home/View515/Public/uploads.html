@@ -1,0 +1,36 @@
+<div class="bjui-pageContent tableContent">
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-bordered table-striped table-hover">
+        <thead>
+            <tr>
+            <th><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+                <th>No.</th>
+				<th>上传人</th>
+                <th>文件描述</th>
+                <th>时间</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+		  <volist id="v" name="list">
+        <tr>
+            <td><input type="checkbox" name="ids" id="ids" data-toggle="icheck" value="{$v.id}"></td>
+             <td>{$v.id}</td>
+			 <td>{$v['uid']|truename=###}</td>
+             <td><a href="/up.php?filename=__ROOT__/{$v['folder']}{$v['filename']}&realname={$v['filedesc']}">{$v['filedesc']}</a></td>
+		     <td>{$v.addtime} </td>
+           
+            </tr>
+			</volist>
+        </tbody>
+    </table>
+	</div>
+</div>
+<div class="bjui-pageFooter">
+      <ul>
+  
+      <li><php>if(display(CONTROLLER_NAME.'/pldelfile')){</php>
+        <span><a type="button" class="btn btn-red" href="__URL__/pldelfile/navTabId/{:CONTROLLER_NAME}" data-toggle="doajaxchecked" data-group="ids" data-confirm-msg="确定要删除选中项吗？">批量删除</a></span>
+        <php>}</php>&nbsp;&nbsp;&nbsp;<button type="button" class="btn-close" data-icon="close">关闭</button></li>
+    </ul>
+</div>

@@ -1,0 +1,29 @@
+<div class="bjui-pageContent tableContent">
+    <form action="__URL__/add/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+		<input type="hidden" name="id" value="{$id}">
+        <div class="pageFormContent" data-layout-h="0">
+          <table class="table table-condensed table-hover" width="100%">
+           <tbody>
+		   <tr><td><label  class='control-label x85'>上级:</label><select   data-toggle="selectpicker" name="pid" class="form-control">
+             <option  value="0">顶级</option>
+	         <foreach name="list" item="v">
+             <option <if condition="$v.id EQ $Rs['pid'] ">selected value="{$Rs['pid']}" <else/>value="{$v.id}"</if> >
+	         <switch name="v.level">  <case value="0">+</case> <case value="1">+--</case><case value="2">+------</case><default /></switch>
+	         {$v.title}
+	          </option>
+              </foreach>
+             </select></td></tr>
+<tr><td><label class='control-label x85'>分类名称:</label><input type='text' id='title' name='title'  size='20'   value='{$Rs.title}'  ></td></tr>
+<Tr><td><label for='desc_input' class='control-label x85'>备注说明:</label><input type='text' id='desc' name='desc'  size='20'   value='{$Rs.desc}'  ></td></tr>
+<tr><td><label  class='control-label x85'>排序:</label><input type='text' id='sort' name='sort'  size='20' data-toggle='spinner' data-min='0' data-max='100' data-step='1' data-rule='integer'  value='{$Rs.sort}'  ></td></tr>
+           </tbody>
+          </table>
+        </div>
+    </form>
+</div>
+<div class="bjui-pageFooter">
+    <ul>
+       <li><button type="button" class="btn-close" data-icon="close">取消</button></li>
+       <li><button type="submit" class="btn-default" data-icon="save">保存</button></li>
+    </ul>
+</div>

@@ -1,0 +1,111 @@
+
+<div class="bjui-pageContent">
+  <div style="margin-top:5px;  overflow:hidden;">
+    <div class="row" style="padding: 0 8px;"> 
+      <!--//-->
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-volume-up"></i> 通知公告 <a href="{:U('tongzhi/index')}" data-toggle="navtab" data-id="{:U('tongzhi/index')}" data-title="通知公告" style="color:blue;" >详细 >></a></h3>
+          </div>
+          <div style="min-height:185px">
+            <table class="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th height=30>通知标题</th>
+                  
+                  <th>发布人</th>
+                  <th>发布时间</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <php>
+              $list=M('tongzhi')->where(array('juid'=>array('like','%'.session(uid).'%')))->order("id desc")->limit(5)->select();
+                </php>
+              
+              <volist id="v" name="list">
+                <tr>
+                  <td>{$v.title|msubstr=###,0,20}</td>
+               
+                  <td>{$v.uname}</td>
+                  <td>{$v.addtime|substr=###,0,10}</td>
+                </tr>
+              </volist>
+                </tbody>
+              
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-volume-up"></i> 系统消息 <a href="{:U('msg/index')}" data-toggle="navtab"  style="color:blue;" data-id="{:U('msg/index')}" data-title="系统消息">详细 >></a></h3>
+          </div>
+          <div style="min-height:185px">
+            <table class="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th height=30>发送时间</th>
+                  <th>发送人</th>
+                  <th>发送内容</th>
+                  <th>查看时间</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <php>
+              $list=M('msg')->where(array('juid'=>array('eq',session(uid))))->order("id desc")->limit(5)->select();
+                </php>
+              
+              <volist id="v" name="list">
+                <tr>
+                  <td>{$v.addtime|msubstr=###,0,20}</td>
+                  <td>{$v.uname|msubstr=###,0,10}</td>
+                  <td>{$v.content}</td>
+                  <td>{$v.viewtime|substr=###,0,20}</td>
+                </tr>
+              </volist>
+                </tbody>
+              
+            </table>
+          </div>
+        </div>
+      </div>
+      <!--//--> 
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-volume-up"></i> 资料下载 <a href="{:U('biaoge/index')}" style="color:blue;" data-toggle="navtab" data-id="{:U('biaoge/index')}" data-title="资料下载">详细 >></a></h3>
+          </div>
+          <div style="min-height:185px">
+            <table class="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th height=30>标题</th>
+                  <th>添加单位</th>
+                  <th>添加时间</th>
+                 
+                </tr>
+              </thead>
+              <tbody>
+                  <php>
+              $list=M('biaoge')->order("id desc")->limit(5)->select();
+                </php>
+              
+              <volist id="v" name="list">
+                <tr>
+                  <td>{$v.title|msubstr=###,0,20}</td>
+                  <td>{$v.uname|msubstr=###,0,10}</td>
+               
+                  <td>{$v.addtime|substr=###,0,20}</td>
+                </tr>
+              </volist>
+                </tbody>
+              
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

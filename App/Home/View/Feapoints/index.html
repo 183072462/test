@@ -1,0 +1,91 @@
+<script type="text/javascript">
+function daochu(){
+	var id = document.getElementsByName('ids');
+       var value = new Array();
+       for(var i = 0; i < id.length; i++){
+         if(id[i].checked)
+         value.push(id[i].value);
+        }
+	var ss=value.toString();
+	
+	var url="__URL__/outxls/id/"+ss;
+	window.location.href=url;
+	}
+</script>
+<div class="bjui-pageHeader">
+  <form id="pagerForm" data-toggle="ajaxsearch" action="__URL__" method="post">
+    <input type="hidden" name="pageSize" value="{$numPerPage}">
+    <input type="hidden" name="pageCurrent" value="{$_REQUEST['pageNum']|default=1}">
+    <div class="bjui-searchBar">
+      <label>关键词：</label>
+      <input type="text" value="{$_REQUEST['keys']}" name="keys" class="form-control" size="12" />
+      <label>特色加分分类:</label>
+        <select name="classify" id="classify" data-toggle='selectpicker'>
+        	<option value='0'>全选</option>
+          <volist name="classifylist" id="data"> <option value ="{$data.id}" <if condition="$classify eq $data['id']">selected="selected"</if>> {$data.title}
+               </option>
+          </volist>
+        </select>
+      <label>添加时间：</label>
+      <input type='text' data-toggle='datepicker' value='{$_REQUEST['time1']}' name='time1' class='form-control' size='12' />
+      -
+      <input type='text' data-toggle='datepicker' value='{$_REQUEST['time2']}' name='time2' class='form-control' size='12' />
+      &nbsp;
+      <button type="submit"  class="btn-default" data-icon="search">查询</button>
+      <a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab('reloadForm', true);" data-icon="undo">清空查询</a>
+      
+       <php>if(display(CONTROLLER_NAME.'/pldel')){</php>
+        <span><a type="button" class="btn btn-red" href="__URL__/pldel/navTabId/{:CONTROLLER_NAME}" data-toggle="doajaxchecked" data-group="ids" data-confirm-msg="确定要删除选中项吗？">批量删除</a></span>
+        <php>}</php>
+      <php>if(display(CONTROLLER_NAME.'/add')){</php>
+      <span><a href="__URL__/add/navTabId/{:CONTROLLER_NAME}" class="btn btn-green" data-toggle="dialog" data-width="800" data-height="510" data-id="dialog-mask" data-mask="true" data-icon="plus">新增</a></span>
+      <php>}</php>
+     <span class="btn btn-blue" onclick="daochu();">导出</span>
+    </div>
+  </form>
+</div>
+<div class="bjui-pageContent tableContent">
+  <table data-toggle="tablefixed" data-width="100%" data-layout-h="0" data-nowrap="true">
+    <thead>
+      <tr>
+       <th width="30" height="30"><input type="checkbox" class="checkboxCtrl" data-group="ids"  data-toggle="icheck"></th>
+        <th data-order-direction='desc' data-order-field='id' width='35'>ID</th>
+      <th>分类</th>  <th>标题</th>
+        <th>加分数</th>
+        <th>添加单位</th>
+        <th data-order-direction='desc' data-order-field='addtime'>添加时间</th>
+        
+        <php>if(display(CONTROLLER_NAME.'/edit')){</php>
+       
+        <th>编辑</th>
+        <php>}</php>
+      </tr>
+    </thead>
+    <tbody>
+      <volist id="v" name="list">
+        <tr ondblclick="abc('{:CONTROLLER_NAME}{$v['id']}');">
+          <td width="30">
+         <input type="checkbox" id="ids" data-toggle="icheck" <if condition="session('uid') != $v['uid'] && session('uid') !=1">disabled  name="idss"<else/> name="ids"</if> value="{$v.id}">
+        </td>
+          <td>{$v.id}</td>
+         <td>{$v.classifyname}</td>
+          <td>{$v.title}</td> <td>{$v.points}</td>
+          <td>{$v.uname|msubstr=###,0,20}</td>
+          <td>{$v.addtime|substr=###,0,10}</td>
+          <php>if(display(CONTROLLER_NAME.'/view')){</php><td style="display:none;"><a href="__URL__/view/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}"  data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" id="{:CONTROLLER_NAME}{$v['id']}" >详细</a></td>          <php>}</php></td>
+          
+          <php>if(display(CONTROLLER_NAME.'/edit')){</php>
+          <td>
+          <php>if(session(uid)==$v['uid'] or session(uid) ==1){</php>
+          <a href="__URL__/edit/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}"   class="btn btn-green btn-sm" data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" >编辑</a></td>
+         <php>}</php> <php>}</php>
+            </td>
+        </tr>
+      </volist>
+    </tbody>
+  </table>
+</div>
+<div class="bjui-pageFooter">
+  <div class="pages"> <span>共 {$totalCount} 条  每页 {$numPerPage} 条</span> </div>
+  <div class="pagination-box" data-toggle="pagination" data-total="{$totalCount}" data-page-size="{$numPerPage}" data-page-current="{$currentPage}"> </div>
+</div>

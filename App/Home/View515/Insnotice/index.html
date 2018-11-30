@@ -1,0 +1,89 @@
+<script type="text/javascript">
+function sss(){
+	//$("#pltime").click();
+	var jztime=$("#jztime1").val();
+	
+		$('#jztime').val(jztime);
+		$("#pltime").click();
+	//document.plsztime.submit();
+	}
+function ysb(){
+	alert("该督察已反馈！");
+	}
+function ygq(){
+	alert("请联系文明办,电话0731-83601509");
+	}
+</script>
+
+<div class="bjui-pageHeader">
+  <form id="pagerForm" data-toggle="ajaxsearch" action="__URL__" method="post">
+    <input type="hidden" name="pageSize" value="{$numPerPage}">
+    <input type="hidden" name="pageCurrent" value="{$_REQUEST['pageNum']|default=1}">
+    <div class="bjui-searchBar">
+      <label>关键词：</label>
+      <input type="text" value="{$_REQUEST['keys']}" name="keys" class="form-control" size="12" />
+      <label>添加时间：</label>
+      <input type='text' data-toggle='datepicker' value='{$_REQUEST['time1']}' name='time1' class='form-control' size='12' />
+      -
+      <input type='text' data-toggle='datepicker' value='{$_REQUEST['time2']}' name='time2' class='form-control' size='12' />
+      &nbsp;
+      <button type="submit"  class="btn-default" data-icon="search">查询</button>
+      <a class="btn btn-orange" href="javascript:;" onclick="$(this).navtab('reloadForm', true);" data-icon="undo">清空查询</a>
+      <php>if(display(CONTROLLER_NAME.'/pldel')){</php>
+      <span style="float:right; margin-right:5px;" ><a type="button" class="btn btn-red" href="__URL__/pldel/navTabId/{:CONTROLLER_NAME}" data-toggle="doajaxchecked" data-group="ids" data-confirm-msg="确定要删除选中项吗？">批量删除</a></span>
+      <php>}</php>
+      <!---->
+      <php>if(display(CONTROLLER_NAME.'/add')){</php>
+      <span style="float:right;margin-right:5px;"><a href="__URL__/add/navTabId/{:CONTROLLER_NAME}" class="btn btn-green" data-toggle="dialog" data-width="900" data-height="550" data-id="dialog-mask" data-mask="true" data-icon="plus">新增</a></span>
+      <php>}</php>
+    </div>
+  </form>
+</div>
+<div class="bjui-pageContent tableContent">
+  <table data-toggle="tablefixed" data-width="100%" data-layout-h="0" data-nowrap="true">
+    <thead>
+      <tr>
+        <th width="25" height="30"><input type="checkbox" class="checkboxCtrl" data-group="ids" data-toggle="icheck"></th>
+        <th data-order-direction='desc' data-order-field='id' width='35'>ID</th>
+        <th>期数</th>
+        <th>标题</th>
+        <th>截止时间</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <volist id="v" name="list">
+        <tr ondblclick="abc({$v['id']});">
+          <td><input type="checkbox"  id="ids" data-toggle="icheck" 
+            <if condition="(session('uid') eq $v['uid']) or (session('uid') eq 1)">name="ids"
+              <else/>
+              disabled name="id[]"</if>
+            value="{$v.id}"></td>
+          <td><a href="__URL__/view/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}"  data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" >{$v.id}</a></td>
+          <td>{$v.years}年第{$v.periods}期</td>
+          <td>{$v.title}</td>
+          <td>{$v.jztime|msubstr=###,0,10}</td>
+          <php>if(display(CONTROLLER_NAME.'/view')){</php>
+          <td style="display:none;"><a href="__URL__/view/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}"  data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" id="{$v['id']}" >详细</a></td>
+          <php>}</php>
+            </td>
+          <td><php>if(session(uid)==$v['uid'] or session(uid) ==1){</php>
+            <a href="__URL__/edit/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}"   class="btn btn-green btn-sm" data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" >编辑</a>&nbsp;<a href="__URL__/getsbinfo/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}"   class="btn btn-green btn-sm" data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" >反馈情况</a>
+            <php>}</php>
+            &nbsp;<a href="index.php/home/feedback/index/rid/{$v['id']}/navTabId/feedback"   class="btn btn-green btn-sm" data-toggle="navtab" >反馈管理</a>
+              <if condition="$v.issb eq 1">
+                <span class="btn btn-red btn-sm" onclick="ysb();">该督查已反馈</span>
+               <else/>
+            <if condition="$v.jztime gt $time"><a href="/index.php?s=/Home/feedback/add/id/{$v['id']}/navTabId/{:CONTROLLER_NAME}"   class="btn btn-green btn-sm" data-toggle="dialog" data-width="900" data-height="450" data-id="dialog-mask" data-mask="true" >反馈结果</a>
+              <else/>
+              <span class="btn btn-red btn-sm" onclick="ygq();">该反馈已过期</span></if></if></td>
+            </td>
+        </tr>
+      </volist>
+    </tbody>
+  </table>
+</div>
+<div class="bjui-pageFooter">
+  <div class="pages"> <span>共 {$totalCount} 条  每页 {$numPerPage} 条</span> </div>
+  <div class="pagination-box" data-toggle="pagination" data-total="{$totalCount}" data-page-size="{$numPerPage}" data-page-current="{$currentPage}"> </div>
+</div>

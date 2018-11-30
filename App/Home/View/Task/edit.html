@@ -1,0 +1,72 @@
+<div class="bjui-pageContent tableContent">
+  <form action="__URL__/edit/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+    <input type="hidden" name="id" value="{$id}">
+    <div class="pageFormContent" data-layout-h="0">
+      <table class="table table-condensed table-hover" width="100%">
+        <tbody>
+          <tr>
+            <td colspan="2"><label for='title_input' class='control-label x85'>任务名称:</label>
+              <textarea cols="30" rows="1" data-toggle="autoheight"id='title' name='title' data-rule='required;'  size="64.8" >{$Rs.title}
+</textarea>
+              <input type="hidden" name="classid" id="classid" value="{$Rs.classid}"></td>
+          </tr>
+          <tr>
+            <if condition="$clist[0]['id'] gt 1">
+              <td><label for='classify_input' class='control-label x85'>任务分类:</label>
+                <select  data-toggle="selectpicker" name="class2id" id="class2id">
+                  <volist name="clist" id="data"> <option value ="{$data.id}" 
+                    <if condition="$Rs.class2id eq $data.id">selected="selected"</if>
+                    > {$data.title}
+                    </option>
+                  </volist>
+                </select></td>
+            </if>
+            <td><label for='jztime_input' class='control-label x85'>截止时间:</label>
+              <input type='text' data-toggle='datepicker' data-pattern='yyyy-MM-dd HH:mm:ss' id='jztime' name='jztime'  data-rule='' size='22'   value='{$Rs.jztime}'  ></td>
+          </tr>
+          <tr>
+            <td><label for='cid_input' class='control-label x85'>参与单位:</label>
+              <input type='text' id='juname' name='juname'  size='20' data-toggle='lookup' data-url='__MODULE__/basic/user/juname/{$Rs.juid}/navTabId/{:CONTROLLER_NAME}'  value='{$Rs.juname}'  >
+              <input type='hidden' id='juid' name='juid'  size='20'   value='{$Rs.juid}'  ></td>
+            <td><label for='jztime_input' class='control-label x85'>短信提醒:</label>
+              <input type="checkbox"  id="phone" name="phone" data-toggle="icheck" value="1">
+              <label class='control-label' style="padding:0 5px;">发送至分管领导</label>
+              <input type="checkbox" name="neixian" data-toggle="icheck" id="neixian" value="1">
+              <label class='control-label' style="padding:0 5px;">发送至专干</label></td>
+          </tr>
+         <tr><td><label for='atimes_input' class='control-label x85'>多次上报:</label>
+            <input name="atimes" type="radio" value="1"  data-toggle='icheck' <if condition="$Rs['atimes'] eq 1">checked="checked"</if>/>不允许
+          <input name="atimes" type="radio" value="2" data-toggle='icheck'  <if condition="$Rs['atimes'] eq 2">checked="checked"</if>/>允许
+             </td>
+            <td></td></tr>
+          </tr>
+          
+          <tr>
+            <td colspan=2><label for='beizhu_input' class='control-label x85'>任务要求:</label>
+              <div style='display: inline-block; vertical-align: middle;'>
+                <textarea name='beizhu'   data-toggle='kindeditor' data-minheight='150' data-items='fontname, fontsize, |, forecolor, hilitecolor, bold, italic, underline, removeformat, |, justifyleft, justifycenter, justifyright, insertorderedlist, insertunorderedlist, |, emoticons, image, multiimage, link'>{$Rs.beizhu}</textarea>
+              </div></td>
+          </tr>
+          </tr>
+          
+          <tr>
+            <td colspan=2><label for='attid_input' class='control-label x85'>上传附件:</label>
+              <div style='display: inline-block; vertical-align: middle;'><IFRAME   src='__MODULE__/Public/attfile/attid/{$attid}/'  frameBorder=0 width='180%' height='auth' scrolling=no ></IFRAME>
+                <input type='hidden' id='attid' name='attid'  value='{$attid}'  >
+                <a href='__MODULE__/Public/uploads/attid/{$attid}/'   class='btn btn-green btn-sm' data-toggle='dialog' data-width='650' data-height='300' data-id='dialog-normal' data-mask='true' >已上传文件管理</a></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>
+<div class="bjui-pageFooter">
+  <ul>
+    <li>
+      <button type="button" class="btn-close" data-icon="close">取消</button>
+    </li>
+    <li>
+      <button type="submit" class="btn-default" data-icon="save">保存</button>
+    </li>
+  </ul>
+</div>

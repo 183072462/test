@@ -1,0 +1,44 @@
+<div class="bjui-pageContent tableContent">
+  <div class="pageFormContent" data-layout-h="0">
+    <table class="table table-bordered table-striped table-hover">
+      <tbody>
+        <tr>
+          <td align="center" style="width:15%">未上报</td> <td align="left">
+          <volist id="v" name="dtj">
+       
+          {$v.title}&nbsp;&nbsp;
+      
+           </volist>
+          </td> </tr> <tr>
+          <td align="center">待审核</td>  <td align="left">  <volist id="v" name="shwtg">
+          <if condition="$v['sstatus'] eq 48">
+          <a href="index.php/home/material/index/juname/{$v.title}/id/{$id}"  data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" >{$v.title}</a>&nbsp;&nbsp;
+          </if>
+           </volist></td> <tr>
+          <td align="center">审核通过</td><td align="left"> <volist id="v" name="shwtg">
+          <if condition="$v['sstatus'] eq 49">
+           <a href="index.php/home/material/index/juname/{$v.title}/id/{$id}"  data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" >{$v.title}</a>&nbsp;&nbsp;
+          </if>
+           </volist></td></tr><tr>
+          <td align="center">审核未通过</td> <td align="left">  <volist id="v" name="shwtg">
+          <if condition="$v['sstatus'] eq 47">
+           <a href="index.php/home/material/index/juname/{$v.title}/id/{$id}"  data-toggle="dialog" data-width="900" data-height="500" data-id="dialog-mask" data-mask="true" >{$v.title}</a>&nbsp;&nbsp;
+          </if>
+           </volist></td>
+        </tr>
+      
+         
+        
+          
+         
+     
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="bjui-pageFooter"> <ul>
+<li>
+      <button type="button" class="btn-close" data-icon="close">关闭</button>
+    </li>
+  </ul>
+</div>

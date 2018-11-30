@@ -1,0 +1,104 @@
+<div class="bjui-pageContent tableContent">
+  <form action="__URL__/edit/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+    <input type="hidden" name="id" value="{$id}">
+    <div class="pageFormContent" data-layout-h="0">
+      <table class="table table-condensed table-hover" width="100%">
+        <tbody>
+          <tr>
+            <td><label for='levelid_input' class='control-label x85'>荣誉级别:</label>
+              <select  data-toggle="selectpicker" name="levelid" id="levelid">
+                <volist name="levelist" id="data">
+                  <option value ="{$data.id}"> {$data.title}</option>
+                </volist>
+              </select></td>
+            <td><label for='callname_input' class='control-label x85'>荣誉称号:</label>
+              <select  data-toggle="selectpicker" name="callname" id="callname" style="width:230px;">
+                <volist name="calllist" id="data">
+                  <option value ="{$data.id}"> {$data.title}</option>
+                </volist>
+              </select></td>
+          </tr>
+          <tr>
+            <td><label for='truename_input' class='control-label x85'>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名:</label>
+              <input type='text' id='truename' name='truename' style="width:130px;" data-rule='required;'   value='{$Rs.truename}'></td>
+            <td><label for='levelid_input' class='control-label x85'>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别:</label>
+              <volist name='Think.config.BASE_SEX' id='sex'><input type='radio'  name='sex' data-toggle='icheck'  data-label='{$sex}' value='{$sex}' 
+                <if condition=" $sex EQ $Rs['sex'] " >checked data-rule='checked'</if>
+                ></volist>
+            </td>
+          </tr>
+           <tr>
+            <td><label for='cardnum_input' class='control-label x85'>身份证号码:</label>
+              <input type='text' id='cardnum' name='cardnum' style="width:180px;"   value='{$Rs.cardnum}'  ></td>
+            <td> <label for='homeaddress_input' class='control-label x85'>家庭住址:</label>
+              <input type='text' id='homeaddress' name='homeaddress' style="width:120px;"   value='{$Rs.homeaddress}'  >
+            </td>
+          </tr>
+          <tr>
+            <td><label for='politica_input' class='control-label x85'>政治面貌:</label>
+              <input type='text' id='politica' name='politica' style="width:130px;"   value='{$Rs.politica}'  ></td>
+            <td>  <label for='education_input' class='control-label x85'>学&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;历:</label>
+              <input type='text' id='education' name='education' style="width:120px;"   value='{$Rs.education}'  >
+             
+              </td>
+          </tr>
+           <tr>
+            <td><label for='job_input' class='control-label x85'>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;务:</label>
+              <input type='text' id='job' name='job' style="width:120px;"   value='{$Rs.job}'  ></td>
+            <td> <label for='phone_input' class='control-label x85'>联系电话:</label>
+              <input type='text' id='phone' name='phone' style="width:130px;"   value='{$Rs.phone}'  >
+            </td>
+          </tr>
+          <php>if(display(CONTROLLER_NAME.'/shenhe')){</php>
+          <tr>
+            <td><label for='wintime_input' class='control-label x85'>获奖时间:</label>
+              <input type='text' data-toggle='datepicker' id='wintime' name='wintime'  data-rule='' size='11'   value='{$Rs.wintime}'  ></td>
+            <td>
+              <label for='winstatus_input' class='control-label x85'>获奖状态:</label>
+              <select  data-toggle="selectpicker" name="winstatus" id="winstatus">
+                <volist name="winstatus" id="data">
+                  <option value ="{$data.id}"> {$data.title}</option>
+                </volist>
+              </select><input type='hidden' id='juid' name='juid'  size='0'   value='{$Rs.juid}'  ></td>
+          </tr><php>}</php>
+          <tr></tr>
+          <tr></tr>
+         
+          </tr>
+          
+          </tr>
+                    <tr>
+            <td colspan=2><label for='beizhu_input' class='control-label x85'>备注:</label>
+              <div style='display: inline-block; vertical-align: middle;'>
+                <textarea name='beizhu'   data-toggle='kindeditor' data-minheight='150' data-items='fontname, fontsize, |, forecolor, hilitecolor, bold, italic, underline, removeformat, |, justifyleft, justifycenter, justifyright, insertorderedlist, insertunorderedlist, |, emoticons, image, multiimage, link'>{$Rs.beizhu}</textarea>
+              </div></td>
+          </tr>
+
+          <tr>
+            <td colspan=2><label for='attid_input' class='control-label x85'>上传附件:</label>
+              <div style='display: inline-block; vertical-align: middle;'><IFRAME   src='__MODULE__/Public/attfile/attid/{$attid}/'  frameBorder=0 width='180%' height='auth' scrolling=no ></IFRAME>
+                <input type='hidden' id='attid' name='attid'  value='{$attid}'  >
+                  <a href='__MODULE__/Public/uploads/attid/{$attid}/'   class='btn btn-green btn-sm' data-toggle='dialog' data-width='550' data-height='300' data-id='dialog-normal' data-mask='true' >已上传文件管理</a></div></td>
+          </tr>
+          <tr>
+            <td colspan=2><label for='hdimgid_input' class='control-label x85'>上传头像:</label>
+              <div style='display: inline-block; vertical-align: middle;'>
+                <IFRAME   src='__MODULE__/Public/attimg/attid/{$Rs.hdimgid}/'  frameBorder=0 width='100%' height='130' scrolling=no ></IFRAME>
+                <input type='hidden' id='hdimgid' name='hdimgid'  value='{$Rs.hdimgid}'  >
+              </div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>
+<div class="bjui-pageFooter">
+  <ul>
+    <li>
+      <button type="button" class="btn-close" data-icon="close">取消</button>
+    </li>
+    <li>
+      <button type="submit" class="btn-default" data-icon="save">保存</button>
+    </li>
+  </ul>
+</div>

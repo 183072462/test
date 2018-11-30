@@ -1,0 +1,33 @@
+<div class="bjui-pageContent tableContent">
+  <form action="__URL__/edit/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+    <input type="hidden" name="id" value="{$id}">
+    <div class="pageFormContent" data-layout-h="0">
+      <table class="table table-condensed table-hover" width="100%">
+        <tbody>
+          
+          <tr>
+            <td><input type="hidden" name="id" value="{$id}"><label for='jztime_input' class='control-label x85'>截至日期:</label>
+              <input type='text' data-toggle='datepicker' data-pattern='yyyy-MM-dd HH:mm:ss' id='jztime' name='jztime'  data-rule='required;datetime' size='20'   value='{$Rs.jztime}'  ></td>
+            <td></td>
+          </tr>
+          </tr>
+          
+          
+          </tr>
+          
+          
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>
+<div class="bjui-pageFooter">
+  <ul>
+    <li>
+      <button type="button" class="btn-close" data-icon="close">取消</button>
+    </li>
+    <li>
+      <button type="submit" class="btn-default" data-icon="save">保存</button>
+    </li>
+  </ul>
+</div>

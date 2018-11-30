@@ -1,0 +1,51 @@
+<div class="bjui-pageContent tableContent">
+  <form action="__URL__/edit/navTabId/{:CONTROLLER_NAME}" class="pageForm" data-toggle="validate">
+    <input type="hidden" name="id" value="{$id}">
+    <input type="hidden" name="sstatus" value="48">
+    <div class="pageFormContent" data-layout-h="0">
+      <table class="table table-condensed table-hover" width="100%">
+        <tbody>
+          <tr>
+            <td><label for='title_input' class='control-label x85'>标题:</label>
+              <input type='text' id='title' name='title' data-rule='required;' size='20'   value='{$Rs.title}'  ></td>
+               <td><label for='author_input' class='control-label x85'>作者:</label>
+              <input type='text' id='author' name='author' data-rule='required;' size='20'   value='{$Rs.author}'  ></td>
+          </tr>
+          <tr></tr>
+          <tr></tr>
+        
+          </tr>
+            <tr>
+            <td><label for='refernumber_input' class='control-label x85'>添加时间:</label>
+              <input type='text' data-toggle='datepicker' data-pattern='yyyy-MM-dd H:i:s' id='updtime' name='updtime'  data-rule='' size='22'   value='{$Rs.updtime}'  ></td>
+               <td></td>
+          </tr>
+          <tr>
+            <td colspan=2><label for='content_input' class='control-label x85'>稿件内容:</label>
+              <div style='display: inline-block; vertical-align: middle;'>
+                <textarea name='content'   data-toggle='kindeditor' data-minheight='150' data-items='fontname, fontsize, |, forecolor, hilitecolor, bold, italic, underline, removeformat, |, justifyleft, justifycenter, justifyright, insertorderedlist, insertunorderedlist, |, emoticons, image, multiimage, link'>{$Rs.content}</textarea>
+              </div></td>
+          </tr>
+          </tr>
+          
+          <tr>
+            <td colspan=2><label for='attid_input' class='control-label x85'>上传附件:</label>
+              <div style='display: inline-block; vertical-align: middle;'><IFRAME   src='__MODULE__/Public/attfile/attid/{$attid}/'  frameBorder=0 width='180%' height='auth' scrolling=no ></IFRAME>
+                <input type='hidden' id='attid' name='attid'  value='{$attid}'  >
+                <a href='__MODULE__/Public/uploads/attid/{$attid}/'   class='btn btn-green btn-sm' data-toggle='dialog' data-width='550' data-height='300' data-id='dialog-normal' data-mask='true' >已上传文件管理</a></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form>
+</div>
+<div class="bjui-pageFooter">
+  <ul>
+    <li>
+      <button type="button" class="btn-close" data-icon="close">取消</button>
+    </li>
+    <li>
+      <button type="submit" class="btn-default" data-icon="save">保存</button>
+    </li>
+  </ul>
+</div>
